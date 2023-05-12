@@ -74,13 +74,16 @@ character desription:
  zap daddy:
   - can shoot bolts of lightning
  
- pyro pete:
+ pyro puker:
   - is a basically a flame thrower
  
- dwain the rock johnson:
+ fart quake:
  - can create a shockwave that pushes you away
       (be aware of the map border)
       
+ shadow:
+ - can become invisible for up to 10 seconds every 30 seconds
+ 
  
  
  
