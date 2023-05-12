@@ -81,7 +81,7 @@ character desription:
  - can create a shockwave that pushes you away
       (be aware of the map border)
       
- shadow:
+ Sneaky Pete the Ninja Beat:
  - can become invisible for up to 10 seconds every 30 seconds
  
  
