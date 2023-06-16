@@ -5,7 +5,7 @@ def change_screen(screen, font):
     screen.fill((0, 0, 0))
 
     # Create the new screen text
-    new_screen_text = "Choose your character"
+    new_screen_text = "Choose your character!"
     new_screen_text_surface = font.render(new_screen_text, True, (255, 255, 255))
 
     # Calculate the position of the new screen text
