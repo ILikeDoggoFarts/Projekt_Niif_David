@@ -21,5 +21,5 @@ title_text_surface = font.render("Smash Bros", False, (255, 0, 255))
 running = True
 while running:
     for event in pygame.event.get():
-        if event.type == pygame.quit:
+        if event.type == pygame.QUIT:
             running = False
