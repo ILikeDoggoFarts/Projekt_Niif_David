@@ -1,6 +1,8 @@
 
 import pygame
 
+pygame.init()
+
 #Angaben zu den Bildschirmdimensionen
 (width, height) = (600,600)
 
