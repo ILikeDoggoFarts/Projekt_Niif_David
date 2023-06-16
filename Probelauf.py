@@ -3,55 +3,96 @@ import pygame
 # Initialize Pygame
 pygame.init()
 
-# Set up the screen
-screen_width = 600
+# Set up the display
+screen_width = 800
 screen_height = 600
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("Smash Bros")
+pygame.display.set_caption("Fighting Game")
 
-# Load background image
-background_image = pygame.image.load("ai.jpg")
+# Colors
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
 
-# Set up the font
-font = pygame.font.Font(None, 64)
+# Game states
+START_SCREEN = 0
+CHARACTER_SELECTION = 1
+GAMEPLAY = 2
 
-# Create the title text
-title_text_surface = font.render("Smash Bros", True, (255, 0, 255))
+# Variable to track current game state
+current_state = START_SCREEN
 
-# Create the "Press enter to continue" text
-press_enter_text_surface = font.render("Press enter to continue", True, (255, 255, 255))
+# Character list
+characters = ["Fighter A", "Fighter B", "Fighter C", "Fighter D"]
+selected_character = None
 
-# Calculate the position of the title text surface
-title_text_x = screen_width // 2 - title_text_surface.get_width() // 2
-title_text_y = screen_height // 12 - title_text_surface.get_height() // 2
 
-# Calculate the position of the "Press enter to continue" text surface
-press_enter_text_x = screen_width // 2 - press_enter_text_surface.get_width() // 2
-press_enter_text_y = screen_height // 2 - press_enter_text_surface.get_height() // 2
+# Start Screen
+def start_screen():
+    screen.fill(BLACK)
 
-# Main loop
+    # Draw title
+    title_font = pygame.font.Font(None, 80)
+    title_text = title_font.render("FIGHTING GAME", True, WHITE)
+    title_text_rect = title_text.get_rect(center=(screen_width // 2, screen_height // 2 - 100))
+    screen.blit(title_text, title_text_rect)
+
+    # Draw menu options
+    menu_font = pygame.font.Font(None, 40)
+    start_text = menu_font.render("1. Start Game", True, WHITE)
+    start_text_rect = start_text.get_rect(center=(screen_width // 2, screen_height // 2))
+    screen.blit(start_text, start_text_rect)
+
+    options_text = menu_font.render("2. Options", True, WHITE)
+    options_text_rect = options_text.get_rect(center=(screen_width // 2, screen_height // 2 + 50))
+    screen.blit(options_text, options_text_rect)
+
+    quit_text = menu_font.render("3. Quit Game", True, WHITE)
+    quit_text_rect = quit_text.get_rect(center=(screen_width // 2, screen_height // 2 + 100))
+    screen.blit(quit_text, quit_text_rect)
+
+    pygame.display.update()
+
+
+# Character Selection Screen
+def character_selection():
+    screen.fill(BLACK)
+
+    # Draw title
+    title_font = pygame.font.Font(None, 80)
+    title_text = title_font.render("SELECT YOUR FIGHTER", True, WHITE)
+    title_text_rect = title_text.get_rect(center=(screen_width // 2, screen_height // 2 - 200))
+    screen.blit(title_text, title_text_rect)
+
+    # Draw character options
+    character_font = pygame.font.Font(None, 60)
+    for i, character in enumerate(characters):
+        character_text = character_font.render(f"{i + 1}. {character}", True, WHITE)
+        character_text_rect = character_text.get_rect(center=(screen_width // 2, screen_height // 2 + (i * 100)))
+        screen.blit(character_text, character_text_rect)
+
+    pygame.display.update()
+
+
+# Gameplay
+def gameplay():
+    screen.fill(BLACK)
+
+    # Draw gameplay elements
+    gameplay_font = pygame.font.Font(None, 80)
+    gameplay_text = gameplay_font.render(f"GAMEPLAY - {selected_character}", True, WHITE)
+    gameplay_text_rect = gameplay_text.get_rect(center=(screen_width // 2, screen_height // 2))
+    screen.blit(gameplay_text, gameplay_text_rect)
+
+    pygame.display.update()
+
+
+# Game Loop
 running = True
-show_press_enter_text = False
+start_screen()
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        elif event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-            # Enter key is pressed, do something
-            print("Enter key is pressed!")
-
-    # Draw the background image
-    screen.blit(background_image, (0, 0))
-
-    # Draw the title text
-    screen.blit(title_text_surface, (title_text_x, title_text_y))
-
-    # Show the "Press enter to continue" text every second
-    if pygame.time.get_ticks() % 2000 < 1000:
-        screen.blit(press_enter_text_surface, (press_enter_text_x, press_enter_text_y))
-
-    # Update the display
-    pygame.display.flip()
-
-# Quit the game
-pygame.quit()
+        elif event.type == pygame.KEYDOWN:
+            if current_state == START_SCREEN:
